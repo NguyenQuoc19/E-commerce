@@ -4,12 +4,16 @@ const { default: helmet } = require("helmet");
 const compression = require("compression");
 const app = express();
 
-// Init middleware
+// Init middleware`
 app.use(morgan("dev")); //combined/common/short/tiny
 app.use(helmet());
 app.use(compression());
 
 // Init Database
+require("./dbs/init.mongodb");
+const {checkOverLoad} = require("./helper/check.connect");
+checkOverLoad();
+
 // Init Router
 app.get("/", ( req, res, next) => {
     const test = "This is a text";
